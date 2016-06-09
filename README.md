@@ -19,9 +19,12 @@ This project is split up by the individual components, the frontend and the back
    --without-pygobject3 \
    --with-graphicsmagick
 
+  npm install
+
 3) Start local development server:
 
-	npm i && npm run dev
+  npm run dev
+  env PORT=8080 npm run dev
 
 4) Run the production build
 
@@ -29,7 +32,7 @@ This project is split up by the individual components, the frontend and the back
 
 TODO - Add instructions for Linux (and possibly Windows)
 
-#### Citations: 
+#### Citations:
 All webpack settings, and redux settings are from various guides online. Below is a list of online resources that were read or used.
 - https://developer.mozilla.org/en/docs/Web/API/Window/localStorage
 - https://github.com/lodash/lodash/wiki/FP-Guide

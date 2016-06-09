@@ -12,6 +12,20 @@ const app = handleActions({
     return action.payload;
   },
 
+  PLAYER_SYNC: (state, {payload}) => {
+    return {
+      ...state,
+      players: payload.players,
+    };
+  },
+
+  TEAM_SYNC: (state, {payload}) => {
+    return {
+      ...state,
+      teams: payload.teams,
+    };
+  },
+
   PLAYER_ADD: (state, action) => {
     const players = state.players.slice();
     players.push(action.payload);
