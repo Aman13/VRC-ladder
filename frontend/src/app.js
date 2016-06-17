@@ -1,5 +1,6 @@
 /* global localStorage */
 /* global fetch */
+
 import {createElement, Element} from 'react';
 import {connect} from 'react-redux';
 import {createAction} from 'redux-actions';
@@ -28,6 +29,11 @@ const saveToBrowser = () => (dispatch, getState) => {
 const addPlayerOnServer = () => (dispatch) => {
   fetch(`${root}players/new`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      // 'Authorization': 'xxxx',
+    },
+    body: JSON.stringify({username: 'aman', password: 'balls'}),
   }).then((response) => {
     return response.json();
   }).then((users) => {
