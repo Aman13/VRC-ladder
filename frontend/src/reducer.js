@@ -72,9 +72,7 @@ const app = handleActions({
     userId: '',
   },
   userInfo: [],
-  teamInfo: [{
-    playTime: '',
-  }],
+  teamInfo: [],
 });
 
 export default combineReducers({
