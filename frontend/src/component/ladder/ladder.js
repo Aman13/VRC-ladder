@@ -12,11 +12,20 @@ import styles from './ladder.css';
 //   </div>
 // ));
 
+const getTime = (time) => {
+  if (time === 'TIME_SLOT_A') {
+    return '8:30';
+  } else if (time === 'TIME_SLOT_B') {
+    return '9:30';
+  }
+  return 'NONE';
+};
+
 const orderTeams = map((team) => (
   <div className={`panel panel-default ${styles.panel}`}>
     <div className={`panel-heading ${styles.panelHeading}`}>
       <span className='pull-left'>Rank {team.ladderPosition}</span>
-      <span className='pull-right'>Playing at 8&#58;00PM</span>
+      <span className='pull-right'>{getTime(team.playTime)}</span>
       <br />
     </div>
     <div className={`panel-body ${styles.panelBody}`}>

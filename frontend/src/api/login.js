@@ -1,4 +1,4 @@
-const root = 'http://localhost:4567/';
+const root = 'http://vrcladder.p76biyyfpm.us-west-2.elasticbeanstalk.com/';
 
 export const logInUser = (user) => {
   return fetch(`${root}login`, {
