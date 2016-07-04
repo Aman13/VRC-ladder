@@ -39,6 +39,13 @@ const app = handleActions({
     };
   },
 
+  MATCH_GROUPS_SYNC: (state, {payload}) => {
+    return {
+      ...state,
+      matchGroups: payload,
+    };
+  },
+
   PLAYER_ADD: (state, action) => {
     const players = state.players.slice();
     players.push(action.payload);
