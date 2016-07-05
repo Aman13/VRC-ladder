@@ -209,12 +209,12 @@ const getTime = (time) => {
 const displayTeamInfo = map((teamInfo) => (
   <div
     key={teamInfo.teamId}
-    className={styles.table}
+    className={styles.inactiveProfileTeams}
   >
     <div className={styles.profileDetailsField}>
       <FormattedMessage
         id='firstPlayer'
-        defaultMessage='Teamed up With: '
+        defaultMessage='Team With: '
       />
     </div>
     <div className={styles.profileDetails}>
@@ -224,7 +224,7 @@ const displayTeamInfo = map((teamInfo) => (
     <div className={styles.profileDetailsField}>
       <FormattedMessage
         id='playTime'
-        defaultMessage='Preferred PlayTime: '
+        defaultMessage='Preferred Play Time: '
       />
     </div>
     <div className={styles.profileDetails}>
