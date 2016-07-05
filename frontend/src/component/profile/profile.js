@@ -72,8 +72,7 @@ const UpdateAttendanceForm = reduxForm({
       <option value=''>Select a team...</option>
       {map((teams) => (
         <option value={teams.teamId}key={teams.teamId}>
-          {teams.firstPlayer.name} {teams.secondPlayer.name}
-        }
+          With:  {teams.secondPlayer.name}
         </option>
       ), teams)}
     </select>
