@@ -2,13 +2,18 @@ import {createElement, Element} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
 // import map from 'lodash/fp/map';
-import sortBy from 'lodash/fp/sortBy';
 import styles from './match-groups.css';
 import {SubmitBtn} from '../button';
+import {getMatchGroups} from '../../action/matchgroups';
+import {withRouter} from 'react-router';
 
-const MatchGroups = ({
+const MatchGroups = withRouter(({
+  getMatchGroups,
 }) : Element => (
   <div className={styles.matchGroupPage}>
+    <div>
+    <button onClick={() => getMatchGroups()}>FETCH</button>
+    </div>
     <div className={styles.matchGroupTitle}>
       <FormattedMessage
         id='title'
@@ -296,12 +301,12 @@ const MatchGroups = ({
       </div>
     </div>
   </div>
-);
+));
 
 export default connect(
   (state) => ({
-    players: sortBy('firstName', state.app.players),
-    teams: sortBy('rank', state.app.teams),
+    teams: state.app.teams,
+    login: state.app.loggedIn,
   }),
-  {}
+  {getMatchGroups}
 )(MatchGroups);

@@ -7,7 +7,7 @@ import {getTeams} from './action/teams';
 import SignUp from './component/signup/signup';
 import Ladder from './component/ladder/ladder';
 import MatchGroups from './component/match-groups/match-groups';
-import CreateTeam from './component/create-team/create-team';
+import CreateTeam from './component/profile/profile';
 import {Nav, NavItem, Navbar, Grid} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import styles from './index.css';
@@ -33,8 +33,8 @@ const Layout = ({children}) => (
             <LinkContainer to='/'>
               <NavItem >Log in</NavItem>
             </LinkContainer>
-            <LinkContainer to='/create-team'>
-              <NavItem >Create team</NavItem>
+            <LinkContainer to='/profile'>
+              <NavItem >Profile</NavItem>
             </LinkContainer>
             <LinkContainer to='/ladder'>
               <NavItem >Ladder</NavItem>
@@ -71,7 +71,7 @@ export default ({store}) : Element => (
           <IndexRoute component={LogIn}/>
           <Route path='/signup' component={SignUp}/>
           <Route path='/login' component={LogIn}/>
-          <Route path='/create-team' component={CreateTeam}/>
+          <Route path='/profile' component={CreateTeam}/>
           <Route path='/match-groups' component={MatchGroups}/>
           <Route
             path='/ladder'
