@@ -13,10 +13,26 @@
   font-size: 22px;
   font-weight: 450;
   width: auto;
+  padding-left: 1%;
   color: ~colors.charcoalGrey;
   background-color: ~colors.darkGreen;
   border-radius: 4px;
   border: solid 2px #ccc;
+}
+
+.profileDetailsField{
+  font-size: 18px;
+  font-weight: 600;
+  padding-left: 1%;
+  width: 20%;
+  display: inline-block;
+}
+
+.profileDetails{
+  font-size: 16px;
+  font-weight: 200;
+  padding-left: 1%;
+  display: inline-block;
 }
 
 .goodForm {

@@ -167,25 +167,33 @@ const CreateTeamForm = reduxForm({
 ));
 const displayMyInfo = (userInfo) => (
   <div>
-    <div>
+    <div className={styles.profileDetailsField}>
       <FormattedMessage
         id='firstName'
         defaultMessage='Name: '
       />
+    </div>
+    <div className={styles.profileDetails}>
       {userInfo.firstName} {userInfo.lastName}
     </div>
-    <div>
+    <br/>
+    <div className={styles.profileDetailsField}>
       <FormattedMessage
         id='phoneNumber'
         defaultMessage='Phone Number: '
       />
+    </div>
+    <div className={styles.profileDetails}>
       {userInfo.phoneNumber}
     </div>
-    <div>
+    <br/>
+    <div className={styles.profileDetailsField}>
       <FormattedMessage
         id='emailAddress'
         defaultMessage='Email: '
       />
+    </div>
+    <div className={styles.profileDetails}>
       {userInfo.emailAddress}
     </div>
   </div>
@@ -203,27 +211,25 @@ const displayTeamInfo = map((teamInfo) => (
     key={teamInfo.teamId}
     className={styles.table}
   >
-    <div>
-    <FormattedMessage
-      id='firstPlayer'
-      defaultMessage='First Player: '
-    />
+    <div className={styles.profileDetailsField}>
+      <FormattedMessage
+        id='firstPlayer'
+        defaultMessage='Teamed up With: '
+      />
     </div>
-    {teamInfo.firstPlayer.name}
-    <div>
-    <FormattedMessage
-      id='firstPlayer'
-      defaultMessage='Second Player: '
-    />
+    <div className={styles.profileDetails}>
+      {teamInfo.secondPlayer.name}
     </div>
-    {teamInfo.secondPlayer.name}
-    <div>
-    <FormattedMessage
-      id='playTime'
-      defaultMessage='PlayTime: '
-    />
+    <br/>
+    <div className={styles.profileDetailsField}>
+      <FormattedMessage
+        id='playTime'
+        defaultMessage='Preferred PlayTime: '
+      />
     </div>
-    {getTime(teamInfo.playTime)}
+    <div className={styles.profileDetails}>
+      {getTime(teamInfo.playTime)}
+    </div>
   </div>
 ));
 const CreateTeam = withRouter(({
