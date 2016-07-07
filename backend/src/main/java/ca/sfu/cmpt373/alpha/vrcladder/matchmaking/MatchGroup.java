@@ -229,4 +229,5 @@ public class MatchGroup implements Comparable<MatchGroup> {
         Team otherLowestRankedTeam = otherMatchGroup.teams.get(otherMatchGroup.teams.size() - 1);
         return thisLowestRankedTeam.getLadderPosition().compareTo(otherLowestRankedTeam.getLadderPosition());
     }
+
 }
