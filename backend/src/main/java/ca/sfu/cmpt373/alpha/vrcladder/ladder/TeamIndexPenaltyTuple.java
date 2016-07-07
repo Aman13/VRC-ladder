@@ -24,10 +24,6 @@ class TeamIndexPenaltyTuple {
         return team;
     }
 
-    public int getOriginalIndex() {
-        return originalIndex;
-    }
-
     public int getPenalty() {
         return penalty;
     }
