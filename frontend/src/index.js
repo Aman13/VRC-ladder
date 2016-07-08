@@ -23,18 +23,18 @@ const Layout = ({children}) => (
               <img src={require('url?limit=10000!./../src/public/logo.png')} />
             </LinkContainer>
           </Navbar.Brand>
+          <Navbar.Text className={styles.navbarLogo}>
+          Vancouver Racquets Club
+          </Navbar.Text>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Nav pullLeft>
-            <p className={styles.navbarLogo}>Vancouver Racquets Club</p>
-          </Nav>
           <Nav pullRight className={styles.navItem}>
             <LinkContainer to='/'>
               <NavItem >Log in</NavItem>
             </LinkContainer>
             <LinkContainer to='/profile'>
-              <NavItem >Profile</NavItem>
+              <NavItem onToggle={false}>Profile</NavItem>
             </LinkContainer>
             <LinkContainer to='/ladder'>
               <NavItem >Ladder</NavItem>
@@ -52,7 +52,7 @@ const Layout = ({children}) => (
       <Navbar fixedTop className={styles.lowerNavbar}>
         <Nav className={styles.lowerNavContainer}>
           <Navbar.Text className={styles.lowerNavbarHeading}>
-          Weekly Doubles Leaderboard
+            {children.props.route.navbarTitle}
           </Navbar.Text>
         </Nav>
       </Navbar>
@@ -68,13 +68,18 @@ export default ({store}) : Element => (
     <IntlProvider messages={{}} defaultLocale='en-US'>
       <Router history={browserHistory}>
         <Route path='/' component={Layout}>
-          <IndexRoute component={LogIn}/>
-          <Route path='/signup' component={SignUp}/>
-          <Route path='/login' component={LogIn}/>
-          <Route path='/profile' component={CreateTeam}/>
-          <Route path='/match-groups' component={MatchGroups}/>
+          <IndexRoute navbarTitle='Login' component={LogIn}/>
+          <Route path='/signup' navbarTitle='Sign Up' component={SignUp}/>
+          <Route path='/login' navbarTitle='Login' component={LogIn}/>
+          <Route path='/profile' navbarTitle='Profile' component={CreateTeam}/>
+          <Route
+            path='/match-groups'
+            navbarTitle='Match Schedule'
+            component={MatchGroups}
+          />
           <Route
             path='/ladder'
+            navbarTitle='Weekly Doubles Leaderboard'
             component={Ladder}
             onEnter={(nextState, replace, callback) => {
               store.dispatch(getUser()).then(callback);

@@ -6,11 +6,13 @@
     color: ~colors.white;
     border: ~colors.charcoalGrey;
     font-size: 21px;
+    margin-bottom: 0px;
   }
 
   .navbarLogo {
+    color: ~colors.white !important;
     position: relative;
-    padding: 15px 0px;
+    /*padding: 15px 0px;*/
     line-height: 20px;
     font-size: 15px;
     text-transform: uppercase;
@@ -19,17 +21,18 @@
 
   .lowerNavbar {
     top: 50px;
+    z-index: 100;
     background-color: ~colors.brightYellow;
     border: ~colors.charcoalGrey;
     min-height: 34px;
     font-size: 18px;
     line-height: 20px;
-    padding: 7px;
-    line-height: 20px;
     text-align: center;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.4);
   }
 
   .lowerNavContainer {
+    margin: 7.5px -15px;
     text-align: center;
     float: none;
     display: inline-block;
@@ -40,6 +43,7 @@
     float: none;
     margin: 0px;
     position: relative;
+    display: inline-block !important;
   }
 
   /*.navbar-default .navbar-nav > .active > a,
@@ -64,8 +68,13 @@
     color: ~colors.brightYellow !important;
   }
 
-  .navItem > li > a:active, .navItem > li > a:focus {
+  .navItem > li > a:active {
     color: inherit !important;
     background-color: ~colors.darkerGreen !important;
   }
+
+  /*.navItem > li > a:active, .navItem > li > a:focus {
+    color: inherit !important;
+    background-color: ~colors.darkerGreen !important;
+  }*/
 }
