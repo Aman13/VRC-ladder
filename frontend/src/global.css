@@ -2,6 +2,7 @@
 
 @import url(https://fonts.googleapis.com/css?family=Roboto|Lato);
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css);
+@import url('./../src/custom-bootstrap.css');
 
 :global {
   html, body {

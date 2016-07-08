@@ -31,19 +31,19 @@ const Layout = ({children}) => (
         <Navbar.Collapse>
           <Nav pullRight className={styles.navItem}>
             <LinkContainer to='/'>
-              <NavItem >Log in</NavItem>
+              <NavItem>Log in</NavItem>
             </LinkContainer>
             <LinkContainer to='/profile'>
-              <NavItem onToggle={false}>Profile</NavItem>
+              <NavItem>Profile</NavItem>
             </LinkContainer>
             <LinkContainer to='/ladder'>
-              <NavItem >Ladder</NavItem>
+              <NavItem>Ladder</NavItem>
             </LinkContainer>
             <LinkContainer to='/match-groups'>
-              <NavItem >Match Groups</NavItem>
+              <NavItem>Match Groups</NavItem>
             </LinkContainer>
             <LinkContainer to='/signup'>
-              <NavItem >Sign up</NavItem>
+              <NavItem>Sign up</NavItem>
             </LinkContainer>
           </Nav>
         </Navbar.Collapse>
