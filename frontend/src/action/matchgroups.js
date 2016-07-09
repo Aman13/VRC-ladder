@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {
   getMatchGroups as getMatchGroupsAPI,
   generateMatchGroups as generateMatchGroupsAPI} from '../api/matchgroups';
+=======
+import {getMatchGroups as getMatchGroupsAPI} from '../api/matchgroups';
+>>>>>>> ada1d380d5aa4707c20721c1fadf63aee93648b1
 =======
 import {getMatchGroups as getMatchGroupsAPI} from '../api/matchgroups';
 >>>>>>> ada1d380d5aa4707c20721c1fadf63aee93648b1
@@ -15,6 +19,7 @@ export const getMatchGroups = () => (dispatch, getState) => {
     }
     console.log(response);
 <<<<<<< HEAD
+<<<<<<< HEAD
     dispatch(syncMatchGroups(response.matchGroups));
     return Promise.resolve();
   }).catch((error) => {
@@ -25,6 +30,9 @@ export const getMatchGroups = () => (dispatch, getState) => {
 export const generateMatchGroups = () => (dispatch, getState) => {
   const state = getState();
   return generateMatchGroupsAPI(state).then(() => {
+=======
+    dispatch(syncMatchGroups(response.courts));
+>>>>>>> ada1d380d5aa4707c20721c1fadf63aee93648b1
 =======
     dispatch(syncMatchGroups(response.courts));
 >>>>>>> ada1d380d5aa4707c20721c1fadf63aee93648b1

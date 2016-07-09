@@ -74,7 +74,10 @@ const app = handleActions({
   userInfo: [],
   teamInfo: [],
 <<<<<<< HEAD
+<<<<<<< HEAD
   matchGroups: [],
+=======
+>>>>>>> ada1d380d5aa4707c20721c1fadf63aee93648b1
 =======
 >>>>>>> ada1d380d5aa4707c20721c1fadf63aee93648b1
 });

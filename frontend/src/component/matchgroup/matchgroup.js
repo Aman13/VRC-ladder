@@ -1,6 +1,7 @@
 import {createElement, Element} from 'react';
 import {connect} from 'react-redux';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {getMatchGroups, generateMatchGroups} from '../../action/matchgroups';
 import {withRouter} from 'react-router';
 
@@ -19,6 +20,8 @@ const MatchGroup = withRouter(({
   <button onClick={() => getMatchGroups()}>FETCH</button>
   {displayMatchGroups(teams, matchGroups)}
 =======
+=======
+>>>>>>> ada1d380d5aa4707c20721c1fadf63aee93648b1
 import {getMatchGroups} from '../../action/matchgroups';
 import {withRouter} from 'react-router';
 
@@ -27,6 +30,9 @@ const MatchGroup = withRouter(({
 }) : Element => (
   <div>
   <button onClick={() => getMatchGroups()}>FETCH</button>
+<<<<<<< HEAD
+>>>>>>> ada1d380d5aa4707c20721c1fadf63aee93648b1
+=======
 >>>>>>> ada1d380d5aa4707c20721c1fadf63aee93648b1
   </div>
 ));
@@ -36,10 +42,15 @@ export default connect(
     teams: state.app.teams,
     login: state.app.loggedIn,
 <<<<<<< HEAD
+<<<<<<< HEAD
     matchGroups: state.app.matchGroups,
   }), {
     getMatchGroups,
     generateMatchGroups}
+=======
+  }),
+  {getMatchGroups}
+>>>>>>> ada1d380d5aa4707c20721c1fadf63aee93648b1
 =======
   }),
   {getMatchGroups}
