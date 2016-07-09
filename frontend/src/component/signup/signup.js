@@ -199,7 +199,7 @@ const SignUp = withRouter(({
           return addUser(userInfo).then(() => {
             router.push('/ladder');
           }).catch((errors) => {
-            // TODO: Error object to expected.
+            errors = {'userId': 'exists'}
             return Promise.reject(errors);
           });
         }}

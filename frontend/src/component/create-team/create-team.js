@@ -286,7 +286,7 @@ const CreateTeam = withRouter(({
       teams={teams}
       userInfo={userInfo}
       onSubmit={(props) => {
-        const errors = validate(props, userInfo);
+        let errors = validate(props, userInfo);
         if (!isEmpty(errors)) {
           return Promise.reject(errors);
         }
@@ -297,8 +297,8 @@ const CreateTeam = withRouter(({
           getTeamInfo().then(() => {
             router.push('/ladder');
           });
-        }).catch((errors) => {
-          errors = {'secondPlayerId': 'team exists'}
+        }).catch(() => {
+          errors = {secondPlayerId: 'team exists'};
           return Promise.reject(errors);
         });
       }}
