@@ -4,7 +4,11 @@ import {IntlProvider} from 'react-intl';
 import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 import {getUser} from './action/users';
 import {getTeams} from './action/teams';
+<<<<<<< HEAD
 import MatchGroup from './component/matchgroup/matchgroup';
+=======
+import MatchGroup from './component/matchgroup/matchgroup'
+>>>>>>> ada1d380d5aa4707c20721c1fadf63aee93648b1
 import SignUp from './component/signup/signup';
 import Ladder from './component/ladder/ladder';
 import CreateTeam from './component/create-team/create-team';

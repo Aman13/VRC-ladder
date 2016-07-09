@@ -73,7 +73,10 @@ const app = handleActions({
   },
   userInfo: [],
   teamInfo: [],
+<<<<<<< HEAD
   matchGroups: [],
+=======
+>>>>>>> ada1d380d5aa4707c20721c1fadf63aee93648b1
 });
 
 export default combineReducers({
