@@ -1,6 +1,10 @@
 import {createElement, Element} from 'react';
 import {connect} from 'react-redux';
-import {getMatchGroups, generateMatchGroups} from '../../action/matchgroups';
+import {
+  getMatchGroups,
+  generateMatchGroups,
+  reportMatchResults,
+  regenerateMatchGroups} from '../../action/matchgroups';
 import {withRouter} from 'react-router';
 import {reduxForm} from 'redux-form';
 import {FormattedMessage} from 'react-intl';
@@ -9,6 +13,7 @@ import {Form, Panel, Well} from 'react-bootstrap';
 
 import Heading from '../heading/heading';
 import map from 'lodash/fp/map';
+import isEmpty from 'lodash/fp/isEmpty';
 import reduce from 'lodash/fp/reduce';
 import find from 'lodash/fp/find';
 import classNames from 'classnames';
@@ -39,8 +44,23 @@ const getTeams = (state) => {
   );
 };
 
+const validate = (values) => {
+  const errors = {};
+  if (values.teamId1 === values.teamId2) {
+    errors.teamId1 = 'Cannot be same team';
+    errors.teamId2 = 'Cannot be same team';
+  } else if (values.teamId1 === values.teamId3) {
+    errors.teamId1 = 'Cannot be same team';
+    errors.teamId3 = 'Cannot be same team';
+  } else if (values.teamId2 === values.teamId3) {
+    errors.teamId2 = 'Cannot be same team';
+    errors.teamId3 = 'Cannot be same team';
+  }
+  return errors;
+};
+
 const matchGroupTeams = ({matchGroup, teams}) => {
-  const teamIds = matchGroup.teamid4 ? [
+  const teamIds = matchGroup.teamId4 ? [
     matchGroup.teamId1,
     matchGroup.teamId2,
     matchGroup.teamId3,
@@ -56,9 +76,10 @@ const matchGroupTeams = ({matchGroup, teams}) => {
 
 const ResultFormThree = reduxForm({
   form: 'resultFour',
-  fields: ['rank1', 'rank2', 'rank3'],
+  fields: ['teamId1', 'teamId2', 'teamId3'],
+  validate,
 })(({
-  fields: {rank1, rank2, rank3},
+  fields: {teamId1, teamId2, teamId3},
   matchTeams,
   handleSubmit,
 }) => (
@@ -68,15 +89,15 @@ const ResultFormThree = reduxForm({
       className={classNames(styles.colXsTitle)}
     >
       <FormattedMessage
-        id='rank1'
+        id='teamId1'
         defaultMessage='Rank 1:'
       />
     </label>
     <select
       className={classNames(styles.goodForm, {
-        [styles.errorForm]: rank1.error &&
-                            rank1.touched})}
-      {...rank1}
+        [styles.errorForm]: teamId1.error &&
+                            teamId1.touched})}
+      {...teamId1}
     >
       <option value=''>Select a team...</option>
       {map((teams) => (
@@ -85,10 +106,10 @@ const ResultFormThree = reduxForm({
         </option>
       ), matchTeams)}
     </select>
-    {rank1.touched && rank1.error &&
+    {teamId1.touched && teamId1.error &&
       <div className={classNames(styles.errorMsg)}>
       <Heading kind='error'>
-            {rank1.error}
+            {teamId1.error}
           </Heading>
       </div>}
   </div>
@@ -97,15 +118,15 @@ const ResultFormThree = reduxForm({
       className={classNames(styles.colXsTitle)}
     >
       <FormattedMessage
-        id='rank2'
+        id='teamId2'
         defaultMessage='Rank 2:'
       />
     </label>
     <select
       className={classNames(styles.goodForm, {
-        [styles.errorForm]: rank2.error &&
-                            rank2.touched})}
-      {...rank2}
+        [styles.errorForm]: teamId2.error &&
+                            teamId2.touched})}
+      {...teamId2}
     >
       <option value=''>Select a team...</option>
       {map((teams) => (
@@ -114,10 +135,10 @@ const ResultFormThree = reduxForm({
         </option>
       ), matchTeams)}
     </select>
-    {rank2.touched && rank2.error &&
+    {teamId2.touched && teamId2.error &&
       <div className={classNames(styles.errorMsg)}>
       <Heading kind='error'>
-            {rank2.error}
+            {teamId2.error}
           </Heading>
       </div>}
   </div>
@@ -126,15 +147,15 @@ const ResultFormThree = reduxForm({
       className={classNames(styles.colXsTitle)}
     >
       <FormattedMessage
-        id='rank3'
+        id='teamId3'
         defaultMessage='Rank 3:'
       />
     </label>
     <select
       className={classNames(styles.goodForm, {
-        [styles.errorForm]: rank3.error &&
-                            rank3.touched})}
-      {...rank3}
+        [styles.errorForm]: teamId3.error &&
+                            teamId3.touched})}
+      {...teamId3}
     >
       <option value=''>Select a team...</option>
       {map((teams) => (
@@ -143,10 +164,10 @@ const ResultFormThree = reduxForm({
         </option>
       ), matchTeams)}
     </select>
-    {rank3.touched && rank3.error &&
+    {teamId3.touched && teamId3.error &&
       <div className={classNames(styles.errorMsg)}>
       <Heading kind='error'>
-            {rank3.error}
+            {teamId3.error}
           </Heading>
       </div>}
   </div>
@@ -158,9 +179,9 @@ const ResultFormThree = reduxForm({
 
 const ResultFormFour = reduxForm({
   form: 'resultFour',
-  fields: ['rank1', 'rank2', 'rank3', 'rank4'],
+  fields: ['teamId1', 'teamId2', 'teamId3', 'teamId4'],
 })(({
-  fields: {rank1, rank2, rank3, rank4},
+  fields: {teamId1, teamId2, teamId3, teamId4},
   matchTeams,
   handleSubmit,
 }) => (
@@ -170,15 +191,15 @@ const ResultFormFour = reduxForm({
       className={classNames(styles.colXsTitle)}
     >
       <FormattedMessage
-        id='rank1'
+        id='teamId1'
         defaultMessage='Rank 1:'
       />
     </label>
     <select
       className={classNames(styles.goodForm, {
-        [styles.errorForm]: rank1.error &&
-                            rank1.touched})}
-      {...rank1}
+        [styles.errorForm]: teamId1.error &&
+                            teamId1.touched})}
+      {...teamId1}
     >
       <option value=''>Select a team...</option>
       {map((teams) => (
@@ -187,10 +208,10 @@ const ResultFormFour = reduxForm({
         </option>
       ), matchTeams)}
     </select>
-    {rank1.touched && rank1.error &&
+    {teamId1.touched && teamId1.error &&
       <div className={classNames(styles.errorMsg)}>
       <Heading kind='error'>
-            {rank1.error}
+            {teamId1.error}
           </Heading>
       </div>}
   </div>
@@ -199,15 +220,15 @@ const ResultFormFour = reduxForm({
       className={classNames(styles.colXsTitle)}
     >
       <FormattedMessage
-        id='rank2'
+        id='teamId2'
         defaultMessage='Rank 2:'
       />
     </label>
     <select
       className={classNames(styles.goodForm, {
-        [styles.errorForm]: rank2.error &&
-                            rank2.touched})}
-      {...rank2}
+        [styles.errorForm]: teamId2.error &&
+                            teamId2.touched})}
+      {...teamId2}
     >
       <option value=''>Select a team...</option>
       {map((teams) => (
@@ -216,10 +237,10 @@ const ResultFormFour = reduxForm({
         </option>
       ), matchTeams)}
     </select>
-    {rank2.touched && rank2.error &&
+    {teamId2.touched && teamId2.error &&
       <div className={classNames(styles.errorMsg)}>
       <Heading kind='error'>
-            {rank2.error}
+            {teamId2.error}
           </Heading>
       </div>}
   </div>
@@ -228,15 +249,15 @@ const ResultFormFour = reduxForm({
       className={classNames(styles.colXsTitle)}
     >
       <FormattedMessage
-        id='rank3'
+        id='teamId3'
         defaultMessage='Rank 3:'
       />
     </label>
     <select
       className={classNames(styles.goodForm, {
-        [styles.errorForm]: rank3.error &&
-                            rank3.touched})}
-      {...rank3}
+        [styles.errorForm]: teamId3.error &&
+                            teamId3.touched})}
+      {...teamId3}
     >
       <option value=''>Select a team...</option>
       {map((teams) => (
@@ -245,10 +266,10 @@ const ResultFormFour = reduxForm({
         </option>
       ), matchTeams)}
     </select>
-    {rank3.touched && rank3.error &&
+    {teamId3.touched && teamId3.error &&
       <div className={classNames(styles.errorMsg)}>
       <Heading kind='error'>
-            {rank3.error}
+            {teamId3.error}
           </Heading>
       </div>}
   </div>
@@ -257,15 +278,15 @@ const ResultFormFour = reduxForm({
       className={classNames(styles.colXsTitle)}
     >
       <FormattedMessage
-        id='rank4'
+        id='teamId4'
         defaultMessage='Rank 4:'
       />
     </label>
     <select
       className={classNames(styles.goodForm, {
-        [styles.errorForm]: rank4.error &&
-                            rank4.touched})}
-      {...rank4}
+        [styles.errorForm]: teamId4.error &&
+                            teamId4.touched})}
+      {...teamId4}
     >
       <option value=''>Select a team...</option>
       {map((teams) => (
@@ -274,10 +295,10 @@ const ResultFormFour = reduxForm({
         </option>
       ), matchTeams)}
     </select>
-    {rank4.touched && rank4.error &&
+    {teamId4.touched && teamId4.error &&
       <div className={classNames(styles.errorMsg)}>
       <Heading kind='error'>
-            {rank4.error}
+            {teamId4.error}
           </Heading>
       </div>}
   </div>
@@ -287,7 +308,7 @@ const ResultFormFour = reduxForm({
   </Form>
 ));
 
-const MatchGroupForms = ({matchGroup, teams}) => {
+const MatchGroupForms = ({matchGroup, teams, reportMatchResults}) => {
   const matchTeams = matchGroupTeams({matchGroup, teams});
   return (
     <Well>
@@ -303,21 +324,35 @@ const MatchGroupForms = ({matchGroup, teams}) => {
       <Panel header='Result Submission' bsStyle='primary'>
       {matchGroup.teamId4 ?
           <ResultFormFour
-            teams={matchTeams}
+            matchTeams={matchTeams}
             onSubmit={(props) => {
-              // below code is a placeholder for more functional code later
-              const temp = props;
-              temp.rank1 = props.rank1;
-              // console.log('submitted: ', props);
+              const errors = validate(props);
+              if (!isEmpty(errors)) {
+                return Promise.reject(errors);
+              }
+              return reportMatchResults({
+                results: props,
+                matchGroupId: matchGroup.matchGroupId}).then(() => {
+                  return Promise.resolve();
+                }).catch((errors) => {
+                  return Promise.reject(errors);
+                });
             }}
           />  :
           <ResultFormThree
             matchTeams={matchTeams}
             onSubmit={(props) => {
-              // below code is a placeholder for more functional code later
-              const temp = props;
-              temp.rank1 = props.rank1;
-              // console.log('submitted: ', props);
+              const errors = validate(props);
+              if (!isEmpty(errors)) {
+                return Promise.reject(errors);
+              }
+              return reportMatchResults({
+                results: props,
+                matchGroupId: matchGroup.matchGroupId}).then(() => {
+                  return Promise.resolve();
+                }).catch((errors) => {
+                  return Promise.reject(errors);
+                });
             }}
           />}
         </Panel>
@@ -330,10 +365,13 @@ const MatchGroups = withRouter(({
   generateMatchGroups,
   teams,
   matchGroups,
+  regenerateMatchGroups,
+  reportMatchResults,
 }) : Element => (
   <div className={styles.matchGroupPage}>
     <div>
       <button onClick={() => generateMatchGroups()}>GENERATE</button>
+      <button onClick={() => regenerateMatchGroups()}>REGENERATE</button>
       <button onClick={() => getMatchGroups()}>FETCH</button>
     </div>
     <div>
@@ -341,6 +379,7 @@ const MatchGroups = withRouter(({
       <MatchGroupForms
         key={matchGroup.matchGroupId}
         matchGroup={matchGroup}
+        reportMatchResults={reportMatchResults}
         teams={teams}
       />
     ))}
@@ -355,5 +394,8 @@ export default connect(
     teams: getTeams(state),
   }), {
     getMatchGroups,
-    generateMatchGroups}
+    generateMatchGroups,
+    reportMatchResults,
+    regenerateMatchGroups,
+  }
 )(MatchGroups);
