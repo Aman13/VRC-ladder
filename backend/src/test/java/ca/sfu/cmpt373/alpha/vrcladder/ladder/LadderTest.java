@@ -487,7 +487,7 @@ public class LadderTest extends BaseTest {
 				expectedResults.get(i).add(sourceResults.get(10));
 				expectedResults.get(i).add(sourceResults.get(14));
 				expectedResults.get(i).add(sourceResults.get(16));
-			} else {
+			} else if(i == 3) {
 				expectedResults.get(i).add(sourceResults.get(1));
 				expectedResults.get(i).add(sourceResults.get(3));
 				expectedResults.get(i).add(sourceResults.get(9));
@@ -505,6 +505,60 @@ public class LadderTest extends BaseTest {
 				expectedResults.get(i).add(sourceResults.get(10));
 				expectedResults.get(i).add(sourceResults.get(14));
 				expectedResults.get(i).add(sourceResults.get(16));
+			} else if(i == 4) {
+				expectedResults.get(i).add(sourceResults.get(1));
+				expectedResults.get(i).add(sourceResults.get(3));
+				expectedResults.get(i).add(sourceResults.get(5));
+				expectedResults.get(i).add(sourceResults.get(9));
+				expectedResults.get(i).add(sourceResults.get(0));
+				expectedResults.get(i).add(sourceResults.get(2));
+				expectedResults.get(i).add(sourceResults.get(6));
+				expectedResults.get(i).add(sourceResults.get(4));
+				expectedResults.get(i).add(sourceResults.get(8));
+				expectedResults.get(i).add(sourceResults.get(12));
+				expectedResults.get(i).add(sourceResults.get(10));
+				expectedResults.get(i).add(sourceResults.get(14));
+				expectedResults.get(i).add(sourceResults.get(16));
+				expectedResults.get(i).add(sourceResults.get(7));
+				expectedResults.get(i).add(sourceResults.get(13));
+				expectedResults.get(i).add(sourceResults.get(11));
+				expectedResults.get(i).add(sourceResults.get(15));
+			} else if(i == 5) {
+				expectedResults.get(i).add(sourceResults.get(1));
+				expectedResults.get(i).add(sourceResults.get(3));
+				expectedResults.get(i).add(sourceResults.get(5));
+				expectedResults.get(i).add(sourceResults.get(9));
+				expectedResults.get(i).add(sourceResults.get(7));
+				expectedResults.get(i).add(sourceResults.get(13));
+				expectedResults.get(i).add(sourceResults.get(11));
+				expectedResults.get(i).add(sourceResults.get(15));
+				expectedResults.get(i).add(sourceResults.get(0));
+				expectedResults.get(i).add(sourceResults.get(2));
+				expectedResults.get(i).add(sourceResults.get(6));
+				expectedResults.get(i).add(sourceResults.get(4));
+				expectedResults.get(i).add(sourceResults.get(8));
+				expectedResults.get(i).add(sourceResults.get(12));
+				expectedResults.get(i).add(sourceResults.get(10));
+				expectedResults.get(i).add(sourceResults.get(14));
+				expectedResults.get(i).add(sourceResults.get(16));
+			} else {
+				expectedResults.get(i).add(sourceResults.get(3));
+				expectedResults.get(i).add(sourceResults.get(0));
+				expectedResults.get(i).add(sourceResults.get(6));
+				expectedResults.get(i).add(sourceResults.get(9));
+				expectedResults.get(i).add(sourceResults.get(1));
+				expectedResults.get(i).add(sourceResults.get(12));
+				expectedResults.get(i).add(sourceResults.get(15));
+				expectedResults.get(i).add(sourceResults.get(2));
+				expectedResults.get(i).add(sourceResults.get(4));
+				expectedResults.get(i).add(sourceResults.get(5));
+				expectedResults.get(i).add(sourceResults.get(7));
+				expectedResults.get(i).add(sourceResults.get(13));
+				expectedResults.get(i).add(sourceResults.get(8));
+				expectedResults.get(i).add(sourceResults.get(10));
+				expectedResults.get(i).add(sourceResults.get(11));
+				expectedResults.get(i).add(sourceResults.get(16));
+				expectedResults.get(i).add(sourceResults.get(14));
 			}
 		}
 
@@ -608,47 +662,47 @@ public class LadderTest extends BaseTest {
                     break;
 				case(3):
 					expectedResults.get(i).add(sourceResults1.get(2));
-					expectedResults.get(i).add(sourceResults1.get(1));
-					expectedResults.get(i).add(sourceResults1.get(3));
+					expectedResults.get(i).add(sourceResults2.get(0));
 					expectedResults.get(i).add(sourceResults1.get(0));
 					expectedResults.get(i).add(sourceResults1.get(4));
-					expectedResults.get(i).add(sourceResults1.get(5));
-					expectedResults.get(i).add(sourceResults2.get(0));
 					expectedResults.get(i).add(sourceResults2.get(1));
 					expectedResults.get(i).add(sourceResults2.get(2));
+					expectedResults.get(i).add(sourceResults1.get(1));
+					expectedResults.get(i).add(sourceResults1.get(3));
+					expectedResults.get(i).add(sourceResults1.get(5));
                     break;
 				case(4):
 					expectedResults.get(i).add(sourceResults2.get(0));
-					expectedResults.get(i).add(sourceResults2.get(2));
 					expectedResults.get(i).add(sourceResults2.get(1));
+					expectedResults.get(i).add(sourceResults2.get(2));
 					expectedResults.get(i).add(sourceResults1.get(2));
 					expectedResults.get(i).add(sourceResults1.get(1));
-					expectedResults.get(i).add(sourceResults1.get(3));
 					expectedResults.get(i).add(sourceResults1.get(0));
-					expectedResults.get(i).add(sourceResults1.get(4));
+					expectedResults.get(i).add(sourceResults1.get(3));
 					expectedResults.get(i).add(sourceResults1.get(5));
+					expectedResults.get(i).add(sourceResults1.get(4));
                     break;
 				case(5):
 					expectedResults.get(i).add(sourceResults1.get(2));
-					expectedResults.get(i).add(sourceResults1.get(1));
-					expectedResults.get(i).add(sourceResults2.get(0));
-					expectedResults.get(i).add(sourceResults1.get(3));
 					expectedResults.get(i).add(sourceResults1.get(0));
+					expectedResults.get(i).add(sourceResults2.get(0));
 					expectedResults.get(i).add(sourceResults1.get(4));
-					expectedResults.get(i).add(sourceResults1.get(5));
-					expectedResults.get(i).add(sourceResults2.get(2));
 					expectedResults.get(i).add(sourceResults2.get(1));
+					expectedResults.get(i).add(sourceResults2.get(2));
+					expectedResults.get(i).add(sourceResults1.get(1));
+					expectedResults.get(i).add(sourceResults1.get(3));
+					expectedResults.get(i).add(sourceResults1.get(5));
                     break;
 				case(6):
-					expectedResults.get(i).add(sourceResults1.get(2));
-					expectedResults.get(i).add(sourceResults2.get(0));
 					expectedResults.get(i).add(sourceResults1.get(0));
-					expectedResults.get(i).add(sourceResults1.get(4));
+					expectedResults.get(i).add(sourceResults2.get(0));
+					expectedResults.get(i).add(sourceResults1.get(3));
 					expectedResults.get(i).add(sourceResults2.get(1));
 					expectedResults.get(i).add(sourceResults1.get(1));
 					expectedResults.get(i).add(sourceResults2.get(2));
-					expectedResults.get(i).add(sourceResults1.get(3));
+					expectedResults.get(i).add(sourceResults1.get(2));
 					expectedResults.get(i).add(sourceResults1.get(5));
+					expectedResults.get(i).add(sourceResults1.get(4));
                     break;
 			}
 		}
@@ -747,58 +801,58 @@ public class LadderTest extends BaseTest {
 				case(3):
 					expectedResults.get(i).add(sourceResults1.get(2));
 					expectedResults.get(i).add(sourceResults1.get(0));
-					expectedResults.get(i).add(sourceResults1.get(1));
 					expectedResults.get(i).add(sourceResults1.get(4));
-					expectedResults.get(i).add(sourceResults1.get(3));
-					expectedResults.get(i).add(sourceResults1.get(5));
-					expectedResults.get(i).add(sourceResults1.get(7));
-					expectedResults.get(i).add(sourceResults1.get(6));
 					expectedResults.get(i).add(sourceResults2.get(0));
 					expectedResults.get(i).add(sourceResults2.get(1));
+					expectedResults.get(i).add(sourceResults1.get(6));
+					expectedResults.get(i).add(sourceResults1.get(1));
 					expectedResults.get(i).add(sourceResults2.get(2));
+					expectedResults.get(i).add(sourceResults1.get(3));
+					expectedResults.get(i).add(sourceResults1.get(5));
 					expectedResults.get(i).add(sourceResults2.get(3));
+					expectedResults.get(i).add(sourceResults1.get(7));
                     break;
 				case(4):
 					expectedResults.get(i).add(sourceResults2.get(0));
-					expectedResults.get(i).add(sourceResults2.get(2));
 					expectedResults.get(i).add(sourceResults2.get(1));
+					expectedResults.get(i).add(sourceResults2.get(2));
 					expectedResults.get(i).add(sourceResults2.get(3));
-					expectedResults.get(i).add(sourceResults1.get(2));
-					expectedResults.get(i).add(sourceResults1.get(0));
 					expectedResults.get(i).add(sourceResults1.get(1));
-					expectedResults.get(i).add(sourceResults1.get(4));
 					expectedResults.get(i).add(sourceResults1.get(3));
 					expectedResults.get(i).add(sourceResults1.get(5));
 					expectedResults.get(i).add(sourceResults1.get(7));
+					expectedResults.get(i).add(sourceResults1.get(2));
+					expectedResults.get(i).add(sourceResults1.get(0));
+					expectedResults.get(i).add(sourceResults1.get(4));
 					expectedResults.get(i).add(sourceResults1.get(6));
                     break;
 				case(5):
 					expectedResults.get(i).add(sourceResults1.get(2));
 					expectedResults.get(i).add(sourceResults1.get(0));
-					expectedResults.get(i).add(sourceResults1.get(1));
 					expectedResults.get(i).add(sourceResults1.get(4));
+					expectedResults.get(i).add(sourceResults1.get(6));
+					expectedResults.get(i).add(sourceResults2.get(0));
+					expectedResults.get(i).add(sourceResults2.get(1));
+					expectedResults.get(i).add(sourceResults2.get(2));
+					expectedResults.get(i).add(sourceResults2.get(3));
+					expectedResults.get(i).add(sourceResults1.get(1));
 					expectedResults.get(i).add(sourceResults1.get(3));
 					expectedResults.get(i).add(sourceResults1.get(5));
-					expectedResults.get(i).add(sourceResults2.get(0));
 					expectedResults.get(i).add(sourceResults1.get(7));
-					expectedResults.get(i).add(sourceResults1.get(6));
-					expectedResults.get(i).add(sourceResults2.get(2));
-					expectedResults.get(i).add(sourceResults2.get(1));
-					expectedResults.get(i).add(sourceResults2.get(3));
                     break;
 				case(6):
-					expectedResults.get(i).add(sourceResults1.get(2));
 					expectedResults.get(i).add(sourceResults1.get(0));
-					expectedResults.get(i).add(sourceResults1.get(4));
+					expectedResults.get(i).add(sourceResults1.get(3));
 					expectedResults.get(i).add(sourceResults2.get(0));
 					expectedResults.get(i).add(sourceResults2.get(1));
 					expectedResults.get(i).add(sourceResults1.get(6));
 					expectedResults.get(i).add(sourceResults1.get(1));
 					expectedResults.get(i).add(sourceResults2.get(2));
-					expectedResults.get(i).add(sourceResults1.get(3));
-					expectedResults.get(i).add(sourceResults1.get(5));
-					expectedResults.get(i).add(sourceResults2.get(3));
+					expectedResults.get(i).add(sourceResults1.get(4));
 					expectedResults.get(i).add(sourceResults1.get(7));
+					expectedResults.get(i).add(sourceResults2.get(3));
+					expectedResults.get(i).add(sourceResults1.get(2));
+					expectedResults.get(i).add(sourceResults1.get(5));
                     break;
 			}
 		}
