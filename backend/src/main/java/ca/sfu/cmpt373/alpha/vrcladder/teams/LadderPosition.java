@@ -20,7 +20,7 @@ public class LadderPosition implements Comparable<LadderPosition> {
     }
 
     public LadderPosition(Integer position) {
-        if (position <= 0) {
+        if (position < this.FIRST_POSITION) {
             throw new ValidationException(ERROR_INVALID_POSITION);
         }
 

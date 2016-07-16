@@ -69,7 +69,7 @@ public class Team {
         return ladderPosition;
     }
 
-    void setLadderPosition(LadderPosition ladderPosition) {
+    public void setLadderPosition(LadderPosition ladderPosition) {
         this.ladderPosition = ladderPosition;
     }
 
