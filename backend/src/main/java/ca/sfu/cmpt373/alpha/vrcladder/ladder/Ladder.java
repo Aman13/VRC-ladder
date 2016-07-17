@@ -70,12 +70,12 @@ public class Ladder {
 
         this.splitLadder();
 
-        this.applyNonAttendancePenalty();
-        this.applyNoShowPenalty();
+        this.applyNonAttendancePenalties();
+        this.applyNoShowPenalties();
 
         this.mergeLadder();
 
-        this.applyLatePenalty();
+        this.applyLatePenalties();
     }
 
     private void splitLadder() {
@@ -140,7 +140,7 @@ public class Ladder {
         }
     }
 
-    private void applyNonAttendancePenalty() {
+    private void applyNonAttendancePenalties() {
         List<Boolean> penalizedTeamsStatus = new ArrayList<>(Collections.nCopies(this.absentTeams.size(), false));
 
         for(int teamIndex = this.absentTeams.size() - 1;teamIndex > -1;teamIndex--) {
@@ -153,7 +153,7 @@ public class Ladder {
         }
     }
 
-    private void applyNoShowPenalty() {
+    private void applyNoShowPenalties() {
         List<Boolean> penalizedTeamsStatus = new ArrayList<>(Collections.nCopies(this.attendingTeams.size(), false));
 
         for(int teamIndex = this.attendingTeams.size() - 1;teamIndex > -1;teamIndex--) {
@@ -166,7 +166,7 @@ public class Ladder {
         }
     }
 
-    private void applyLatePenalty() {
+    private void applyLatePenalties() {
         List<Boolean> penalizedTeamsStatus = new ArrayList<>(Collections.nCopies(this.allTeams.size(), false));
 
         for(int teamIndex = this.allTeams.size() - 1;teamIndex > -1;teamIndex--) {
