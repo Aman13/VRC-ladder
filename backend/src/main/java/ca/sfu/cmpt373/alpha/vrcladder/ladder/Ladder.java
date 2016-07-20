@@ -16,7 +16,7 @@ public class Ladder {
     private static final String ERROR_DUPLICATE_TEAM = "The Ladder already contains this team. The ladder may not hold duplicate elements";
     private static final Team PLACEHOLDER_TEAM = new PlaceholderTeam();
     private static final int ABSENT_PENALTY = 2;
-    private static final int NOSHOW_PENALTY = 10;
+    private static final int NO_SHOW_PENALTY = 10;
     private static final int LATE_PENALTY = 4;
 
     private List<Team> allTeams;
@@ -66,16 +66,15 @@ public class Ladder {
         for(MatchGroup matchGroup : matchGroups) {
             this.applyRankingsWithinMatchGroup(matchGroup);
         }
-        this.swapTeamsBetweenMatchGroup(matchGroups);
+        this.swapTeamsBetweenMatchGroups(matchGroups);
 
         this.splitLadder();
 
         this.applyNonAttendancePenalties();
-        this.applyNoShowPenalties();
+        this.applyAttendingPenalties(AttendanceStatus.LATE, this.LATE_PENALTY);
+        this.applyAttendingPenalties(AttendanceStatus.NO_SHOW, this.NO_SHOW_PENALTY);
 
         this.mergeLadder();
-
-        this.applyLatePenalties();
     }
 
     private void splitLadder() {
@@ -128,7 +127,7 @@ public class Ladder {
         }
     }
 
-    private void swapTeamsBetweenMatchGroup(List<MatchGroup> matchGroups) {
+    private void swapTeamsBetweenMatchGroups(List<MatchGroup> matchGroups) {
         for(int i = 0;i < matchGroups.size() - 1;i++) {
             List<Team> rankedMatchGroupTeams1 = matchGroups.get(i).getScoreCard().getRankedTeams();
             List<Team> rankedMatchGroupTeams2 = matchGroups.get(i + 1).getScoreCard().getRankedTeams();
@@ -153,74 +152,23 @@ public class Ladder {
         }
     }
 
-    private void applyNoShowPenalties() {
+    private void applyAttendingPenalties(AttendanceStatus attendanceStatus, int penalty) {
         List<Boolean> penalizedTeamsStatus = new ArrayList<>(Collections.nCopies(this.attendingTeams.size(), false));
 
         for(int teamIndex = this.attendingTeams.size() - 1;teamIndex > -1;teamIndex--) {
             //It is necessary to loop backwards, else the penalties will "cross over" each other. Hard to explain, just try doing it on a piece of paper and you'll see.
             //Additionally, if a penalty reaches the end of the list, the penalties directly above it will be applied differently
             Team team = this.attendingTeams.get(teamIndex);
-            if(team != this.PLACEHOLDER_TEAM && team.getAttendanceCard().getAttendanceStatus() == AttendanceStatus.NO_SHOW) {
-                this.penalizeNoShowTeam(penalizedTeamsStatus, team);
+            if(team != this.PLACEHOLDER_TEAM && team.getAttendanceCard().getAttendanceStatus() == attendanceStatus) {
+                this.penalizeAttendingTeam(penalizedTeamsStatus, team, penalty);
             }
         }
     }
 
-    private void applyLatePenalties() {
-        List<Boolean> penalizedTeamsStatus = new ArrayList<>(Collections.nCopies(this.allTeams.size(), false));
-
-        for(int teamIndex = this.allTeams.size() - 1;teamIndex > -1;teamIndex--) {
-            //It is necessary to loop backwards, else the penalties will "cross over" each other. Hard to explain, just try doing it on a piece of paper and you'll see.
-            //Additionally, if a penalty reaches the end of the list, the penalties directly above it will be applied differently
-            Team team = this.allTeams.get(teamIndex);
-            if(team.getAttendanceCard().getAttendanceStatus() == AttendanceStatus.LATE) {
-                this.penalizeLateTeam(penalizedTeamsStatus, team);
-            }
-        }
-    }
-
-    private void penalizeLateTeam(List<Boolean> penalizedTeamsStatus, Team team) {
-        int teamIndex = this.allTeams.indexOf(team);
-        this.allTeams.remove(team);
-        teamIndex += this.LATE_PENALTY;
-
-        if(teamIndex >= this.allTeams.size()) {
-            teamIndex = this.allTeams.size();
-        }
-
-        assert(this.allTeams.size() + 1 == penalizedTeamsStatus.size());
-
-        while(penalizedTeamsStatus.get(teamIndex)) {
-            teamIndex--;
-        }
-
-        penalizedTeamsStatus.set(teamIndex, true);
-        this.allTeams.add(teamIndex, team);
-    }
-
-    private void penalizeAbsentTeam(List<Boolean> penalizedTeamsStatus, Team team) {
-        int teamIndex = this.absentTeams.indexOf(team);
-        this.absentTeams.remove(team);
-        teamIndex += this.ABSENT_PENALTY;
-
-        if(teamIndex >= this.absentTeams.size()) {
-            teamIndex = this.absentTeams.size();
-        }
-
-        assert(this.absentTeams.size() + 1 == penalizedTeamsStatus.size());
-
-        while(penalizedTeamsStatus.get(teamIndex)) {
-            teamIndex--;
-        }
-
-        penalizedTeamsStatus.set(teamIndex, true);
-        this.absentTeams.add(teamIndex, team);
-    }
-
-    private void penalizeNoShowTeam(List<Boolean> penalizedTeamsStatus, Team team) {
+    private void penalizeAttendingTeam(List<Boolean> penalizedTeamsStatus, Team team, int penalty) {
         int teamIndex = this.attendingTeams.indexOf(team);
         this.attendingTeams.set(teamIndex, this.PLACEHOLDER_TEAM);
-        teamIndex += this.NOSHOW_PENALTY;
+        teamIndex += penalty;
 
         if(teamIndex >= this.absentTeams.size()) {
             teamIndex = this.absentTeams.size() - 1;
@@ -243,6 +191,25 @@ public class Ladder {
         } else {
             this.absentTeams.set(teamIndex, team);
         }
+    }
+
+    private void penalizeAbsentTeam(List<Boolean> penalizedTeamsStatus, Team team) {
+        int teamIndex = this.absentTeams.indexOf(team);
+        this.absentTeams.remove(team);
+        teamIndex += this.ABSENT_PENALTY;
+
+        if(teamIndex >= this.absentTeams.size()) {
+            teamIndex = this.absentTeams.size();
+        }
+
+        assert(this.absentTeams.size() + 1 == penalizedTeamsStatus.size());
+
+        while(penalizedTeamsStatus.get(teamIndex)) {
+            teamIndex--;
+        }
+
+        penalizedTeamsStatus.set(teamIndex, true);
+        this.absentTeams.add(teamIndex, team);
     }
 
     @Override
