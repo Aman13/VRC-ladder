@@ -71,8 +71,8 @@ public class Ladder {
         this.splitLadder();
 
         this.applyNonAttendancePenalties();
-        this.applyAttendingPenalties(AttendanceStatus.LATE, this.LATE_PENALTY);
         this.applyAttendingPenalties(AttendanceStatus.NO_SHOW, this.NO_SHOW_PENALTY);
+        this.applyAttendingPenalties(AttendanceStatus.LATE, this.LATE_PENALTY);
 
         this.mergeLadder();
     }
@@ -176,7 +176,7 @@ public class Ladder {
 
         assert(this.absentTeams.size() == penalizedTeamsStatus.size());
 
-        while(penalizedTeamsStatus.get(teamIndex)) {
+        while(penalizedTeamsStatus.get(teamIndex) || (this.absentTeams.get(teamIndex) != this.PLACEHOLDER_TEAM && this.absentTeams.get(teamIndex).getAttendanceCard().getAttendanceStatus() == AttendanceStatus.NO_SHOW)) {
             teamIndex--;
         }
 

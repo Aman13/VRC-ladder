@@ -133,7 +133,7 @@ public class LadderStepsTest {
         teamTestData.get(4).getAttendanceCard().setAttendanceStatus(AttendanceStatus.LATE);
 
         //TODO: add more test data
-        testApplyMultiplePenalties(teamTestData, new Integer[] {1, 3, 2, 5, 0, 6, 7, 4, 8});
+        testApplyMultiplePenalties(teamTestData, new Integer[] {1, 3, 5, 2, 0, 6, 7, 8, 4});
     }
 
     private void testApplyMultiplePenalties(List<Team> inputTeams, Integer[] resultsIndices) {

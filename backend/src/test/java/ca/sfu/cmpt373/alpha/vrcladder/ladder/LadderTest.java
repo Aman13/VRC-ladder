@@ -15,7 +15,6 @@ import ca.sfu.cmpt373.alpha.vrcladder.util.MockTeamGenerator;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Ignore;
 
 import javax.naming.SizeLimitExceededException;
 
@@ -29,7 +28,7 @@ public class LadderTest extends BaseTest {
 	private boolean initialized = false;
 
 	//List of Lists of Teams, first index is Case, second is ATTENDING or NOT_ATTENDING
-	List<List<List<Team>>> testTeams;
+	private List<List<List<Team>>> testTeams;
 
     public LadderTest() {}
 
@@ -39,7 +38,7 @@ public class LadderTest extends BaseTest {
 		for(int attendance = ATTENDING;attendance <= NOT_ATTENDING;attendance++) {
 			caseTeams.add(new ArrayList<>());
 			for(int i = 0;i < GENERATED_TEAMS;i++) {
-				Team team = MockTeamGenerator.generateTeam();;
+				Team team = MockTeamGenerator.generateTeam();
 
 				if(attendance == ATTENDING) {
 					team.getAttendanceCard().setAttendanceStatus(AttendanceStatus.PRESENT);
@@ -256,8 +255,6 @@ public class LadderTest extends BaseTest {
 
 	@Test
 	public void groupSize3Adjacent() throws SizeLimitExceededException { //Case 1: Groups are directly beside one another, groups of 3 only
-		MatchGroupGenerator getGroups = new MatchGroupGenerator();
-
 		int teamCount = 9;
 		List<List<Team>> expectedResults = new ArrayList<>();
 		for(int i = 0;i < TEST_CASE_COUNT;i++) {
@@ -284,15 +281,15 @@ public class LadderTest extends BaseTest {
                 expectedResults.get(i).add(sourceResults.get(6));
                 expectedResults.get(i).add(sourceResults.get(8));
 			} else if(i == 4) {
-                expectedResults.get(i).add(sourceResults.get(1));
-                expectedResults.get(i).add(sourceResults.get(3));
-                expectedResults.get(i).add(sourceResults.get(5));
-                expectedResults.get(i).add(sourceResults.get(7));
                 expectedResults.get(i).add(sourceResults.get(2));
                 expectedResults.get(i).add(sourceResults.get(0));
                 expectedResults.get(i).add(sourceResults.get(4));
                 expectedResults.get(i).add(sourceResults.get(6));
                 expectedResults.get(i).add(sourceResults.get(8));
+                expectedResults.get(i).add(sourceResults.get(1));
+                expectedResults.get(i).add(sourceResults.get(3));
+                expectedResults.get(i).add(sourceResults.get(5));
+                expectedResults.get(i).add(sourceResults.get(7));
             } else if(i == 5) {
                 expectedResults.get(i).add(sourceResults.get(1));
                 expectedResults.get(i).add(sourceResults.get(3));
@@ -307,12 +304,12 @@ public class LadderTest extends BaseTest {
                 expectedResults.get(i).add(sourceResults.get(0));
                 expectedResults.get(i).add(sourceResults.get(3));
                 expectedResults.get(i).add(sourceResults.get(6));
-                expectedResults.get(i).add(sourceResults.get(2));
                 expectedResults.get(i).add(sourceResults.get(1));
-                expectedResults.get(i).add(sourceResults.get(5));
                 expectedResults.get(i).add(sourceResults.get(4));
-                expectedResults.get(i).add(sourceResults.get(8));
                 expectedResults.get(i).add(sourceResults.get(7));
+                expectedResults.get(i).add(sourceResults.get(2));
+                expectedResults.get(i).add(sourceResults.get(5));
+                expectedResults.get(i).add(sourceResults.get(8));
             }
 		}
 
@@ -320,7 +317,7 @@ public class LadderTest extends BaseTest {
 			List<List<Team>> ladderTestTeamsSeg = getTeams(teamCount, testCase);
 			List<Team> ladderTestTeams = ladderTestTeamsSeg.get(ATTENDING);
 
-			List<MatchGroup> ladderTestGroups = getGroups.generateMatchGroupings(ladderTestTeams, new ArrayList<Team>(), 3);
+			List<MatchGroup> ladderTestGroups = MatchGroupGenerator.generateMatchGroupings(ladderTestTeams, new ArrayList<>(), 3);
 
 			//The following sets the 3 groups final scores to: 3-2-1, 2-1-3, 1-2-3
             List<Team> matchResults = new ArrayList<>();
@@ -384,16 +381,16 @@ public class LadderTest extends BaseTest {
                 expectedResults.get(i).add(sourceResults.get(9));
                 expectedResults.get(i).add(sourceResults.get(11));
             } else if(i == 4) {
-                expectedResults.get(i).add(sourceResults.get(0));
-                expectedResults.get(i).add(sourceResults.get(2));
-                expectedResults.get(i).add(sourceResults.get(6));
-                expectedResults.get(i).add(sourceResults.get(4));
                 expectedResults.get(i).add(sourceResults.get(1));
                 expectedResults.get(i).add(sourceResults.get(3));
                 expectedResults.get(i).add(sourceResults.get(7));
                 expectedResults.get(i).add(sourceResults.get(5));
                 expectedResults.get(i).add(sourceResults.get(9));
                 expectedResults.get(i).add(sourceResults.get(11));
+                expectedResults.get(i).add(sourceResults.get(0));
+                expectedResults.get(i).add(sourceResults.get(2));
+                expectedResults.get(i).add(sourceResults.get(6));
+                expectedResults.get(i).add(sourceResults.get(4));
                 expectedResults.get(i).add(sourceResults.get(8));
                 expectedResults.get(i).add(sourceResults.get(10));
 			} else if(i == 5) {
@@ -414,14 +411,14 @@ public class LadderTest extends BaseTest {
                 expectedResults.get(i).add(sourceResults.get(3));
                 expectedResults.get(i).add(sourceResults.get(6));
                 expectedResults.get(i).add(sourceResults.get(9));
-                expectedResults.get(i).add(sourceResults.get(2));
                 expectedResults.get(i).add(sourceResults.get(1));
-                expectedResults.get(i).add(sourceResults.get(5));
-                expectedResults.get(i).add(sourceResults.get(8));
                 expectedResults.get(i).add(sourceResults.get(7));
                 expectedResults.get(i).add(sourceResults.get(4));
-                expectedResults.get(i).add(sourceResults.get(11));
                 expectedResults.get(i).add(sourceResults.get(10));
+                expectedResults.get(i).add(sourceResults.get(2));
+                expectedResults.get(i).add(sourceResults.get(5));
+                expectedResults.get(i).add(sourceResults.get(8));
+                expectedResults.get(i).add(sourceResults.get(11));
             }
 		}
 
@@ -511,23 +508,23 @@ public class LadderTest extends BaseTest {
 				expectedResults.get(i).add(sourceResults.get(14));
 				expectedResults.get(i).add(sourceResults.get(16));
 			} else if(i == 4) {
-				expectedResults.get(i).add(sourceResults.get(1));
-				expectedResults.get(i).add(sourceResults.get(3));
-				expectedResults.get(i).add(sourceResults.get(5));
-				expectedResults.get(i).add(sourceResults.get(9));
-				expectedResults.get(i).add(sourceResults.get(0));
-				expectedResults.get(i).add(sourceResults.get(2));
-				expectedResults.get(i).add(sourceResults.get(6));
-				expectedResults.get(i).add(sourceResults.get(4));
-				expectedResults.get(i).add(sourceResults.get(8));
-				expectedResults.get(i).add(sourceResults.get(12));
-				expectedResults.get(i).add(sourceResults.get(10));
-				expectedResults.get(i).add(sourceResults.get(14));
-				expectedResults.get(i).add(sourceResults.get(16));
-				expectedResults.get(i).add(sourceResults.get(7));
-				expectedResults.get(i).add(sourceResults.get(13));
-				expectedResults.get(i).add(sourceResults.get(11));
-				expectedResults.get(i).add(sourceResults.get(15));
+                expectedResults.get(i).add(sourceResults.get(0));
+                expectedResults.get(i).add(sourceResults.get(2));
+                expectedResults.get(i).add(sourceResults.get(6));
+                expectedResults.get(i).add(sourceResults.get(4));
+                expectedResults.get(i).add(sourceResults.get(8));
+                expectedResults.get(i).add(sourceResults.get(12));
+                expectedResults.get(i).add(sourceResults.get(10));
+                expectedResults.get(i).add(sourceResults.get(14));
+                expectedResults.get(i).add(sourceResults.get(16));
+                expectedResults.get(i).add(sourceResults.get(1));
+                expectedResults.get(i).add(sourceResults.get(3));
+                expectedResults.get(i).add(sourceResults.get(5));
+                expectedResults.get(i).add(sourceResults.get(9));
+                expectedResults.get(i).add(sourceResults.get(7));
+                expectedResults.get(i).add(sourceResults.get(13));
+                expectedResults.get(i).add(sourceResults.get(11));
+                expectedResults.get(i).add(sourceResults.get(15));
 			} else if(i == 5) {
 				expectedResults.get(i).add(sourceResults.get(1));
 				expectedResults.get(i).add(sourceResults.get(3));
@@ -556,15 +553,15 @@ public class LadderTest extends BaseTest {
                 expectedResults.get(i).add(sourceResults.get(16));
                 expectedResults.get(i).add(sourceResults.get(5));
                 expectedResults.get(i).add(sourceResults.get(8));
+                expectedResults.get(i).add(sourceResults.get(11));
+                expectedResults.get(i).add(sourceResults.get(14));
                 expectedResults.get(i).add(sourceResults.get(3));
                 expectedResults.get(i).add(sourceResults.get(0));
-                expectedResults.get(i).add(sourceResults.get(11));
                 expectedResults.get(i).add(sourceResults.get(6));
-                expectedResults.get(i).add(sourceResults.get(14));
                 expectedResults.get(i).add(sourceResults.get(9));
                 expectedResults.get(i).add(sourceResults.get(12));
                 expectedResults.get(i).add(sourceResults.get(15));
-			}
+            }
 		}
 
 		for(int testCase = 0;testCase < TEST_CASE_COUNT;testCase++) {
@@ -614,6 +611,13 @@ public class LadderTest extends BaseTest {
             ladderTestGroups.get(4).getScoreCard().setRankedTeams(matchResults);
             matchResults.clear();
 
+            System.out.println("Test Case #" + testCase + ":");
+            for(int i = 0;i < expectedResults.get(testCase).size();i++) {
+                User firstPlayer = expectedResults.get(testCase).get(i).getFirstPlayer();
+                User secondPlayer = expectedResults.get(testCase).get(i).getSecondPlayer();
+                System.out.println(i + ": " + firstPlayer.getFirstName() + " " + firstPlayer.getLastName() + ", " + secondPlayer.getFirstName() + " " + secondPlayer.getLastName());
+            }
+
 			Ladder testLadder = new Ladder(ladderTestTeams);
 			testLadder.updateLadder(ladderTestGroups);
 
@@ -623,8 +627,6 @@ public class LadderTest extends BaseTest {
 
 	@Test
 	public void groupSize3NonAdjacent() throws SizeLimitExceededException { //Case 4: Groups have non-attending teams between them, groups of 3 only
-		MatchGroupGenerator getGroups = new MatchGroupGenerator();
-
 		int teamCount = 6;
 		List<List<Team>> expectedResults = new ArrayList<>();
 		for(int i = 0;i < TEST_CASE_COUNT;i++) {
@@ -680,12 +682,12 @@ public class LadderTest extends BaseTest {
                     expectedResults.get(i).add(sourceResults2.get(0));
                     expectedResults.get(i).add(sourceResults2.get(1));
                     expectedResults.get(i).add(sourceResults2.get(2));
-                    expectedResults.get(i).add(sourceResults1.get(2)); //NoShow
-                    expectedResults.get(i).add(sourceResults1.get(1)); //Late
-                    expectedResults.get(i).add(sourceResults1.get(3)); //Late
-                    expectedResults.get(i).add(sourceResults1.get(0)); //NoShow
-                    expectedResults.get(i).add(sourceResults1.get(5)); //Late
-                    expectedResults.get(i).add(sourceResults1.get(4)); //NoShow
+                    expectedResults.get(i).add(sourceResults1.get(2));
+                    expectedResults.get(i).add(sourceResults1.get(1));
+                    expectedResults.get(i).add(sourceResults1.get(3));
+                    expectedResults.get(i).add(sourceResults1.get(0));
+                    expectedResults.get(i).add(sourceResults1.get(5));
+                    expectedResults.get(i).add(sourceResults1.get(4));
                     break;
 				case(5):
 					expectedResults.get(i).add(sourceResults1.get(2));
@@ -726,7 +728,7 @@ public class LadderTest extends BaseTest {
 			ladderTestTeams.add(ladderTestTeamsSeg.get(ATTENDING).get(5));
 			ladderTestTeams.add(ladderTestTeamsSeg.get(NOT_ATTENDING).get(2));
 
-			List<MatchGroup> ladderTestGroups = getGroups.generateMatchGroupings(ladderTestTeams, new ArrayList<Team>(), 2);
+			List<MatchGroup> ladderTestGroups = MatchGroupGenerator.generateMatchGroupings(ladderTestTeams, new ArrayList<>(), 2);
 
 			//The following sets the 2 groups final scores to: 3-2-1, 1-2-3
             List<Team> matchResults = new ArrayList<>();
@@ -743,8 +745,18 @@ public class LadderTest extends BaseTest {
             ladderTestGroups.get(1).getScoreCard().setRankedTeams(matchResults);
             matchResults.clear();
 
+            System.out.println("Test Case #" + testCase + ":");
+            for(int i = 0;i < expectedResults.get(testCase).size();i++) {
+                User firstPlayer = expectedResults.get(testCase).get(i).getFirstPlayer();
+                User secondPlayer = expectedResults.get(testCase).get(i).getSecondPlayer();
+                System.out.println(i + ": " + firstPlayer.getFirstName() + " " + firstPlayer.getLastName() + ", " + secondPlayer.getFirstName() + " " + secondPlayer.getLastName());
+            }
+
 			Ladder testLadder = new Ladder(ladderTestTeams);
 			testLadder.updateLadder(ladderTestGroups);
+
+            System.out.println("\nResults:");
+            System.out.println(testLadder.toString());
 
             assertTrue(expectedResults.get(testCase).equals(testLadder.getLadder()));
 		}
@@ -752,9 +764,7 @@ public class LadderTest extends BaseTest {
 
 	@Test
 	public void groupSize4NonAdjacent() throws SizeLimitExceededException { //Case 5: Groups have non-attending teams between them, groups of 4 only
-		MatchGroupGenerator getGroups = new MatchGroupGenerator();
-
-		int teamCount = 8;
+        int teamCount = 8;
 		List<List<Team>> expectedResults = new ArrayList<>();
 		for(int i = 0;i < TEST_CASE_COUNT;i++) {
 			List<Team> sourceResults1 = getTeams(teamCount, i).get(ATTENDING);
@@ -879,7 +889,7 @@ public class LadderTest extends BaseTest {
 			ladderTestTeams.add(ladderTestTeamsSeg.get(NOT_ATTENDING).get(2));
 			ladderTestTeams.add(ladderTestTeamsSeg.get(NOT_ATTENDING).get(3));
 
-			List<MatchGroup> ladderTestGroups = getGroups.generateMatchGroupings(ladderTestTeams, new ArrayList<Team>(), 2);
+			List<MatchGroup> ladderTestGroups = MatchGroupGenerator.generateMatchGroupings(ladderTestTeams, new ArrayList<>(), 2);
 
 			//The following sets the 2 groups final scores to: 3-1-2-4, 1-2-4-3
             List<Team> matchResults = new ArrayList<>();
@@ -898,8 +908,18 @@ public class LadderTest extends BaseTest {
             ladderTestGroups.get(1).getScoreCard().setRankedTeams(matchResults);
             matchResults.clear();
 
+            System.out.println("Test Case #" + testCase + ":");
+            for(int i = 0;i < expectedResults.get(testCase).size();i++) {
+                User firstPlayer = expectedResults.get(testCase).get(i).getFirstPlayer();
+                User secondPlayer = expectedResults.get(testCase).get(i).getSecondPlayer();
+                System.out.println(i + ": " + firstPlayer.getFirstName() + " " + firstPlayer.getLastName() + ", " + secondPlayer.getFirstName() + " " + secondPlayer.getLastName());
+            }
+
 			Ladder testLadder = new Ladder(ladderTestTeams);
 			testLadder.updateLadder(ladderTestGroups);
+
+            System.out.println("\nResults:");
+            System.out.println(testLadder.toString());
 
             assertTrue(expectedResults.get(testCase).equals(testLadder.getLadder()));
 		}
@@ -929,9 +949,9 @@ public class LadderTest extends BaseTest {
                     expectedResults.get(i).add(sourceResults2.get(1));
                     expectedResults.get(i).add(sourceResults2.get(2));
                     expectedResults.get(i).add(sourceResults2.get(3));
+                    expectedResults.get(i).add(sourceResults2.get(4));
                     expectedResults.get(i).add(sourceResults1.get(1));
                     expectedResults.get(i).add(sourceResults1.get(0));
-                    expectedResults.get(i).add(sourceResults2.get(4));
                     expectedResults.get(i).add(sourceResults1.get(2));
                     break;
 				case(2):
@@ -950,8 +970,8 @@ public class LadderTest extends BaseTest {
                     expectedResults.get(i).add(sourceResults2.get(1));
                     expectedResults.get(i).add(sourceResults2.get(2));
                     expectedResults.get(i).add(sourceResults2.get(3));
-                    expectedResults.get(i).add(sourceResults1.get(0));
                     expectedResults.get(i).add(sourceResults2.get(4));
+                    expectedResults.get(i).add(sourceResults1.get(0));
                     expectedResults.get(i).add(sourceResults1.get(2));
                     break;
 				case(4):
@@ -959,9 +979,9 @@ public class LadderTest extends BaseTest {
                     expectedResults.get(i).add(sourceResults2.get(1));
                     expectedResults.get(i).add(sourceResults2.get(2));
                     expectedResults.get(i).add(sourceResults2.get(3));
+                    expectedResults.get(i).add(sourceResults2.get(4));
                     expectedResults.get(i).add(sourceResults1.get(0));
                     expectedResults.get(i).add(sourceResults1.get(2));
-                    expectedResults.get(i).add(sourceResults2.get(4));
                     expectedResults.get(i).add(sourceResults1.get(1));
                     break;
 				case(5):
@@ -980,8 +1000,8 @@ public class LadderTest extends BaseTest {
                     expectedResults.get(i).add(sourceResults2.get(1));
                     expectedResults.get(i).add(sourceResults2.get(2));
                     expectedResults.get(i).add(sourceResults2.get(3));
-                    expectedResults.get(i).add(sourceResults1.get(2));
                     expectedResults.get(i).add(sourceResults2.get(4));
+                    expectedResults.get(i).add(sourceResults1.get(2));
                     expectedResults.get(i).add(sourceResults1.get(0));
                     break;
 			}
@@ -1047,11 +1067,11 @@ public class LadderTest extends BaseTest {
                     expectedResults.get(i).add(sourceResults2.get(1));
                     expectedResults.get(i).add(sourceResults2.get(2));
                     expectedResults.get(i).add(sourceResults2.get(3));
-                    expectedResults.get(i).add(sourceResults1.get(2));
-                    expectedResults.get(i).add(sourceResults1.get(3));
                     expectedResults.get(i).add(sourceResults2.get(4));
                     expectedResults.get(i).add(sourceResults2.get(5));
                     expectedResults.get(i).add(sourceResults2.get(6));
+                    expectedResults.get(i).add(sourceResults1.get(2));
+                    expectedResults.get(i).add(sourceResults1.get(3));
                     expectedResults.get(i).add(sourceResults1.get(1));
                     expectedResults.get(i).add(sourceResults1.get(0));
                     break;
@@ -1070,13 +1090,13 @@ public class LadderTest extends BaseTest {
                     break;
 				case(3):
                     expectedResults.get(i).add(sourceResults1.get(3));
+                    expectedResults.get(i).add(sourceResults1.get(1));
                     expectedResults.get(i).add(sourceResults2.get(0));
                     expectedResults.get(i).add(sourceResults2.get(1));
                     expectedResults.get(i).add(sourceResults2.get(2));
-                    expectedResults.get(i).add(sourceResults1.get(2));
-                    expectedResults.get(i).add(sourceResults1.get(1));
                     expectedResults.get(i).add(sourceResults2.get(3));
                     expectedResults.get(i).add(sourceResults2.get(4));
+                    expectedResults.get(i).add(sourceResults1.get(2));
                     expectedResults.get(i).add(sourceResults2.get(5));
                     expectedResults.get(i).add(sourceResults2.get(6));
                     expectedResults.get(i).add(sourceResults1.get(0));
@@ -1086,11 +1106,11 @@ public class LadderTest extends BaseTest {
                     expectedResults.get(i).add(sourceResults2.get(1));
                     expectedResults.get(i).add(sourceResults2.get(2));
                     expectedResults.get(i).add(sourceResults2.get(3));
-                    expectedResults.get(i).add(sourceResults1.get(2));
-                    expectedResults.get(i).add(sourceResults1.get(0));
                     expectedResults.get(i).add(sourceResults2.get(4));
                     expectedResults.get(i).add(sourceResults2.get(5));
                     expectedResults.get(i).add(sourceResults2.get(6));
+                    expectedResults.get(i).add(sourceResults1.get(2));
+                    expectedResults.get(i).add(sourceResults1.get(0));
                     expectedResults.get(i).add(sourceResults1.get(3));
                     expectedResults.get(i).add(sourceResults1.get(1));
                     break;
@@ -1113,10 +1133,10 @@ public class LadderTest extends BaseTest {
                     expectedResults.get(i).add(sourceResults2.get(1));
                     expectedResults.get(i).add(sourceResults2.get(2));
                     expectedResults.get(i).add(sourceResults2.get(3));
-                    expectedResults.get(i).add(sourceResults1.get(3));
                     expectedResults.get(i).add(sourceResults2.get(4));
                     expectedResults.get(i).add(sourceResults2.get(5));
                     expectedResults.get(i).add(sourceResults2.get(6));
+                    expectedResults.get(i).add(sourceResults1.get(3));
                     expectedResults.get(i).add(sourceResults1.get(0));
                     expectedResults.get(i).add(sourceResults1.get(1));
                     break;
@@ -1165,7 +1185,6 @@ public class LadderTest extends BaseTest {
 		}
 	}
 
-    @Ignore
 	@Test
 	public void groupSize3NonAdjacentAllIntersecting() throws SizeLimitExceededException { //Case 8: Groups have non-attending teams beside and inside them, groups of 3 only, all overlapping
 		int teamCount = 13;
@@ -1400,14 +1419,23 @@ public class LadderTest extends BaseTest {
             ladderTestGroups.get(2).getScoreCard().setRankedTeams(matchResults);
             matchResults.clear();
 
+            System.out.println("Test Case #" + testCase + ":");
+            for(int i = 0;i < expectedResults.get(testCase).size();i++) {
+                User firstPlayer = expectedResults.get(testCase).get(i).getFirstPlayer();
+                User secondPlayer = expectedResults.get(testCase).get(i).getSecondPlayer();
+                System.out.println(i + ": " + firstPlayer.getFirstName() + " " + firstPlayer.getLastName() + ", " + secondPlayer.getFirstName() + " " + secondPlayer.getLastName());
+            }
+
 			Ladder testLadder = new Ladder(ladderTestTeams);
 			testLadder.updateLadder(ladderTestGroups);
+
+            System.out.println("\nResults:");
+            System.out.println(testLadder.toString());
 
             assertTrue(expectedResults.get(testCase).equals(testLadder.getLadder()));
 		}
 	}
 
-    @Ignore
 	@Test
 	public void groupSize4NonAdjacentAllIntersecting() throws SizeLimitExceededException { //Case 9: Groups have non-attending teams beside and inside them, groups of 4 only, all overlapping
 		int teamCount = 13;
@@ -1669,14 +1697,23 @@ public class LadderTest extends BaseTest {
             ladderTestGroups.get(2).getScoreCard().setRankedTeams(matchResults);
             matchResults.clear();
 
+            System.out.println("Test Case #" + testCase + ":");
+            for(int i = 0;i < expectedResults.get(testCase).size();i++) {
+                User firstPlayer = expectedResults.get(testCase).get(i).getFirstPlayer();
+                User secondPlayer = expectedResults.get(testCase).get(i).getSecondPlayer();
+                System.out.println(i + ": " + firstPlayer.getFirstName() + " " + firstPlayer.getLastName() + ", " + secondPlayer.getFirstName() + " " + secondPlayer.getLastName());
+            }
+
 			Ladder testLadder = new Ladder(ladderTestTeams);
 			testLadder.updateLadder(ladderTestGroups);
+
+            System.out.println("\nResults:");
+            System.out.println(testLadder.toString());
 
             assertTrue(expectedResults.get(testCase).equals(testLadder.getLadder()));
 		}
 	}
 
-    @Ignore
 	@Test
 	public void groupSize34NonAdjacentAllIntersecting() throws SizeLimitExceededException { //Case 10: Groups have non-attending teams beside and inside them, groups of 3/4, all overlapping, not predictably interchanging (At least one of each)
 		int teamCount = 11;
