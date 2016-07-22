@@ -647,14 +647,14 @@ public class LadderTest extends BaseTest {
                     break;
 				case(1):
 					expectedResults.get(i).add(sourceResults2.get(0));
-					expectedResults.get(i).add(sourceResults2.get(1));
-					expectedResults.get(i).add(sourceResults2.get(2));
-					expectedResults.get(i).add(sourceResults1.get(2));
-					expectedResults.get(i).add(sourceResults1.get(1));
-					expectedResults.get(i).add(sourceResults1.get(3));
-					expectedResults.get(i).add(sourceResults1.get(0));
-					expectedResults.get(i).add(sourceResults1.get(4));
-					expectedResults.get(i).add(sourceResults1.get(5));
+                    expectedResults.get(i).add(sourceResults2.get(1));
+                    expectedResults.get(i).add(sourceResults2.get(2));
+                    expectedResults.get(i).add(sourceResults1.get(2));
+                    expectedResults.get(i).add(sourceResults1.get(1));
+                    expectedResults.get(i).add(sourceResults1.get(3));
+                    expectedResults.get(i).add(sourceResults1.get(0));
+                    expectedResults.get(i).add(sourceResults1.get(4));
+                    expectedResults.get(i).add(sourceResults1.get(5));
                     break;
 				case(2):
 					expectedResults.get(i).add(sourceResults2.get(0));
@@ -669,8 +669,8 @@ public class LadderTest extends BaseTest {
                     break;
 				case(3):
                     expectedResults.get(i).add(sourceResults1.get(2));
-                    expectedResults.get(i).add(sourceResults2.get(0));
                     expectedResults.get(i).add(sourceResults1.get(0));
+                    expectedResults.get(i).add(sourceResults2.get(0));
                     expectedResults.get(i).add(sourceResults1.get(4));
                     expectedResults.get(i).add(sourceResults2.get(1));
                     expectedResults.get(i).add(sourceResults1.get(1));
@@ -682,11 +682,11 @@ public class LadderTest extends BaseTest {
                     expectedResults.get(i).add(sourceResults2.get(0));
                     expectedResults.get(i).add(sourceResults2.get(1));
                     expectedResults.get(i).add(sourceResults2.get(2));
-                    expectedResults.get(i).add(sourceResults1.get(2));
                     expectedResults.get(i).add(sourceResults1.get(1));
                     expectedResults.get(i).add(sourceResults1.get(3));
-                    expectedResults.get(i).add(sourceResults1.get(0));
                     expectedResults.get(i).add(sourceResults1.get(5));
+                    expectedResults.get(i).add(sourceResults1.get(2));
+                    expectedResults.get(i).add(sourceResults1.get(0));
                     expectedResults.get(i).add(sourceResults1.get(4));
                     break;
 				case(5):
@@ -702,14 +702,14 @@ public class LadderTest extends BaseTest {
                     break;
 				case(6):
 					expectedResults.get(i).add(sourceResults1.get(0));
-					expectedResults.get(i).add(sourceResults2.get(0));
-					expectedResults.get(i).add(sourceResults1.get(3));
-					expectedResults.get(i).add(sourceResults2.get(1));
-					expectedResults.get(i).add(sourceResults1.get(1));
-					expectedResults.get(i).add(sourceResults2.get(2));
-					expectedResults.get(i).add(sourceResults1.get(2));
-					expectedResults.get(i).add(sourceResults1.get(5));
-					expectedResults.get(i).add(sourceResults1.get(4));
+                    expectedResults.get(i).add(sourceResults1.get(3));
+                    expectedResults.get(i).add(sourceResults2.get(0));
+                    expectedResults.get(i).add(sourceResults2.get(1));
+                    expectedResults.get(i).add(sourceResults2.get(2));
+                    expectedResults.get(i).add(sourceResults1.get(1));
+                    expectedResults.get(i).add(sourceResults1.get(4));
+                    expectedResults.get(i).add(sourceResults1.get(2));
+                    expectedResults.get(i).add(sourceResults1.get(5));
                     break;
 			}
 		}
