@@ -2,11 +2,8 @@ import {createElement, Element} from 'react';
 import {Well} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {Typeahead} from 'react-typeahead';
-import fuzzy from 'fuzzy';
-import map from 'lodash/fp/map';
 import sortBy from 'lodash/fp/sortBy';
 import styles from './ladder.css';
-
 const getTime = (time) => {
   if (time === 'TIME_SLOT_A') {
     return 'ATTENDING';
@@ -24,7 +21,6 @@ const getGameTimeStyle = (time) => {
 };
 
 const getLadderRowStyle = (team) => {
-  console.log('getladderrowstyle', team);
   const currentUserId = team.loggedIn;
   if (team.firstPlayer.userId === currentUserId ||
     team.secondPlayer.userId === currentUserId) {
@@ -34,7 +30,6 @@ const getLadderRowStyle = (team) => {
 };
 
 const orderTeams = (team) => {
-  console.log('orderTeams', team);
   return (
     <tr className={getLadderRowStyle(team)}>
       <td className={styles.ladderTeamPlace}>
@@ -58,11 +53,11 @@ const test = (teams, loggedIn) => {
     `${option.firstPlayer.name} ${option.secondPlayer.name} default`;
     option.loggedIn = loggedIn.userId;
   });
-  console.log('test', teams);
   return teams;
 };
 
 const testDisplay = ({options, displayOption}) => {
+  const sortedTeams = sortBy('ladderPosition', options);
   return (
     <table className={styles.ladderTable}>
       <thead>
@@ -82,7 +77,7 @@ const testDisplay = ({options, displayOption}) => {
         </tr>
       </thead>
       <tbody className={styles.ladderTableBody}>
-        {options.map(displayOption)}
+        {sortedTeams.map(displayOption)}
       </tbody>
     </table>
   );
@@ -91,8 +86,8 @@ const testDisplay = ({options, displayOption}) => {
 const Ladder = ({
   teams,
   loggedIn,
-}) : Element => (
-  <Well className={`${styles.ladderTableContainer} table-responsive`}>
+}) : Element => {
+  return (<Well className={`${styles.ladderTableContainer} table-responsive`}>
   <Typeahead
     options={test(teams, loggedIn)}
     filterOption='bothPlayers'
@@ -100,8 +95,8 @@ const Ladder = ({
     displayOption={orderTeams}
     customListComponent={testDisplay}
   />
-  </Well>
-);
+  </Well>);
+};
 
 export default connect(
   (state) => ({
