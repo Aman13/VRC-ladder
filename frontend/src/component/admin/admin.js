@@ -26,19 +26,10 @@ const ViewSwitch = (props) => (dispatch) => {
   dispatch(updateView(props));
 };
 
-const EmailLadderPDF = ({requestPDF}) => {
-  return requestPDF().then(() => {
-    // some response
-  }).catch(() => {
-    // future code
-  });
-};
-
 const Admin = ({
   adminView,
   ViewSwitch,
   requestPDF,
-  EmailLadderPDF,
 }) : Element => (
   <Well className={`${styles.ladderTableContainer} table-responsive`}>
     <div>
@@ -46,7 +37,7 @@ const Admin = ({
     <button onClick={() => ViewSwitch('player')}>PlayerOverride</button>
     <button onClick={() => ViewSwitch('team')}>TeamOverride</button>
     <button
-      onClick={() => EmailLadderPDF({requestPDF})}
+      onClick={() => requestPDF()}
     >Request PDF Email</button>
     </div>
     <div>
@@ -64,6 +55,5 @@ export default connect(
   }), {
     ViewSwitch,
     requestPDF,
-    EmailLadderPDF,
   }
 )(Admin);
