@@ -1,6 +1,8 @@
 import {createElement, Element} from 'react';
 import {Well} from 'react-bootstrap';
 import {connect} from 'react-redux';
+import {Typeahead} from 'react-typeahead';
+import fuzzy from 'fuzzy';
 import map from 'lodash/fp/map';
 import sortBy from 'lodash/fp/sortBy';
 import styles from './ladder.css';
@@ -21,8 +23,9 @@ const getGameTimeStyle = (time) => {
   return styles.ladderNotAttendingGameTime;
 };
 
-const getLadderRowStyle = (team, loggedIn) => {
-  const currentUserId = loggedIn.userId;
+const getLadderRowStyle = (team) => {
+  console.log('getladderrowstyle', team);
+  const currentUserId = team.loggedIn;
   if (team.firstPlayer.userId === currentUserId ||
     team.secondPlayer.userId === currentUserId) {
     return styles.currentUserLadderRow;
@@ -30,9 +33,10 @@ const getLadderRowStyle = (team, loggedIn) => {
   return styles.ladderTeamRow;
 };
 
-const orderTeams = (teams, loggedIn) => {
-  return map((team) => (
-    <tr className={getLadderRowStyle(team, loggedIn)} key={team.teamId}>
+const orderTeams = (team) => {
+  console.log('orderTeams', team);
+  return (
+    <tr className={getLadderRowStyle(team)}>
       <td className={styles.ladderTeamPlace}>
         <span>{team.ladderPosition}</span>
       </td>
@@ -45,14 +49,21 @@ const orderTeams = (teams, loggedIn) => {
       <td className={getGameTimeStyle(team.playTime)}>
         <span>{getTime(team.playTime)}</span>
       </td>
-    </tr>), teams);
+    </tr>);
 };
 
-const Ladder = ({
-  teams,
-  loggedIn,
-}) : Element => (
-  <Well className={`${styles.ladderTableContainer} table-responsive`}>
+const test = (teams, loggedIn) => {
+  teams.map((option) => {
+    option.bothPlayers =
+    `${option.firstPlayer.name} ${option.secondPlayer.name} default`;
+    option.loggedIn = loggedIn.userId;
+  });
+  console.log('test', teams);
+  return teams;
+};
+
+const testDisplay = ({options, displayOption}) => {
+  return (
     <table className={styles.ladderTable}>
       <thead>
         <tr className={styles.ladderTableHeading}>
@@ -71,9 +82,24 @@ const Ladder = ({
         </tr>
       </thead>
       <tbody className={styles.ladderTableBody}>
-        {orderTeams(teams, loggedIn)}
+        {options.map(displayOption)}
       </tbody>
     </table>
+  );
+};
+
+const Ladder = ({
+  teams,
+  loggedIn,
+}) : Element => (
+  <Well className={`${styles.ladderTableContainer} table-responsive`}>
+  <Typeahead
+    options={test(teams, loggedIn)}
+    filterOption='bothPlayers'
+    showOptionsWhenEmpty
+    displayOption={orderTeams}
+    customListComponent={testDisplay}
+  />
   </Well>
 );
 
