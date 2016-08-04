@@ -1,6 +1,9 @@
 package ca.sfu.cmpt373.alpha.vrcladder.users;
 
+import ca.sfu.cmpt373.alpha.vrcladder.exceptions.DuplicatePropertyException;
+import ca.sfu.cmpt373.alpha.vrcladder.notifications.logic.Email;
 import ca.sfu.cmpt373.alpha.vrcladder.persistence.DatabaseManager;
+import ca.sfu.cmpt373.alpha.vrcladder.persistence.PersistenceConstants;
 import ca.sfu.cmpt373.alpha.vrcladder.persistence.SessionManager;
 import ca.sfu.cmpt373.alpha.vrcladder.teams.Team;
 import ca.sfu.cmpt373.alpha.vrcladder.users.authentication.Password;
@@ -45,6 +48,8 @@ public class UserManager extends DatabaseManager<User> {
 
     public User create(UserId userId, UserRole userRole, String firstName, String middleName, String lastName,
         EmailAddress emailAddress, PhoneNumber phoneNumber, Password password) {
+        checkIfUserIdExists(userId);
+        checkIfEmailExists(emailAddress);
         User createdUser = new UserBuilder()
             .setUserId(userId)
             .setUserRole(userRole)
@@ -132,6 +137,33 @@ public class UserManager extends DatabaseManager<User> {
         session.close();
 
         return matchedTeams;
+    }
+
+    private void checkIfUserIdExists(UserId userId) {
+        Session session = sessionManager.getSession();
+
+        Criterion sameUserIdCriterion = Restrictions.eq(CriterionConstants.USER_ID, userId);
+        Criteria sameUserIdCriteria = session.createCriteria(User.class).add(sameUserIdCriterion);
+
+        User existingUser = (User) sameUserIdCriteria.uniqueResult();
+        session.close();
+
+        if (existingUser != null) {
+            throw new DuplicatePropertyException(PersistenceConstants.COLUMN_ID);
+        }
+    }
+
+    private void checkIfEmailExists(EmailAddress emailAddress) {
+        Session session = sessionManager.getSession();
+        Criterion sameUserIdCriterion = Restrictions.eq(CriterionConstants.USER_EMAIL_ADDRESS, emailAddress);
+        Criteria sameUserIdCriteria = session.createCriteria(User.class).add(sameUserIdCriterion);
+
+        User existingUser = (User) sameUserIdCriteria.uniqueResult();
+        session.close();
+
+        if (existingUser != null) {
+            throw new DuplicatePropertyException(PersistenceConstants.COLUMN_EMAIL_ADDRESS);
+        }
     }
 
 }

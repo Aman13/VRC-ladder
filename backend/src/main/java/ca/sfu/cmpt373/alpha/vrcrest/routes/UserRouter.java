@@ -1,6 +1,7 @@
 package ca.sfu.cmpt373.alpha.vrcrest.routes;
 
 import ca.sfu.cmpt373.alpha.vrcladder.ApplicationManager;
+import ca.sfu.cmpt373.alpha.vrcladder.exceptions.DuplicatePropertyException;
 import ca.sfu.cmpt373.alpha.vrcladder.exceptions.PropertyInstantiationException;
 import ca.sfu.cmpt373.alpha.vrcladder.exceptions.TemplateNotFoundException;
 import ca.sfu.cmpt373.alpha.vrcladder.exceptions.ValidationException;
@@ -185,11 +186,12 @@ public class UserRouter extends RestRouter {
             responseBody.addProperty(ex.getMessage(), PersistenceConstants.INVALID_PROPERTY_VALUE);
             response.status(HttpStatus.UNPROCESSABLE_ENTITY_422);
         }
-        catch (ConstraintViolationException ex) {
-            if(ex.getConstraintName().contains(PersistenceConstants.CONSTRAINT_CONFLICT_ID)){
+        catch (DuplicatePropertyException ex) {
+            String duplicatPropertyName = ex.getPropertyName();
+            if(duplicatPropertyName.equals(PersistenceConstants.COLUMN_ID)){
                 responseBody.addProperty(JSON_PROPERTY_ERROR, PersistenceConstants.EXISTING_USER_ID);
                 responseBody.addProperty(JsonProperties.JSON_PROPERTY_USER_ID, false);
-            }else if(ex.getConstraintName().contains(PersistenceConstants.CONSTRAINT_CONFLICT_EMAIL)){
+            } else if (duplicatPropertyName.equals(PersistenceConstants.COLUMN_EMAIL_ADDRESS)){
                 responseBody.addProperty(JSON_PROPERTY_ERROR, PersistenceConstants.EXISTING_USER_EMAIL);
                 responseBody.addProperty(JsonProperties.JSON_PROPERTY_EMAIL_ADDRESS, false);
             }
@@ -281,13 +283,13 @@ public class UserRouter extends RestRouter {
             Password plainTextPassWord = updateUserPayload.getPassword();
             String passwordHash = plainTextPassWord.getHash();
             User existingUser = userManager.update(
-                userId,
-                updateUserPayload.getFirstName(),
-                updateUserPayload.getMiddleName(),
-                updateUserPayload.getLastName(),
-                updateUserPayload.getEmailAddress(),
-                updateUserPayload.getPhoneNumber(),
-                securityManager.hashPassword(passwordHash));
+                    userId,
+                    updateUserPayload.getFirstName(),
+                    updateUserPayload.getMiddleName(),
+                    updateUserPayload.getLastName(),
+                    updateUserPayload.getEmailAddress(),
+                    updateUserPayload.getPhoneNumber(),
+                    securityManager.hashPassword(passwordHash));
 
 
             responseBody.add(JSON_PROPERTY_USER, getGson().toJsonTree(existingUser));
@@ -301,7 +303,7 @@ public class UserRouter extends RestRouter {
         } catch (JsonParseException | IllegalArgumentException ex) {
             responseBody.addProperty(JSON_PROPERTY_ERROR, ex.getMessage());
             response.status(HttpStatus.BAD_REQUEST_400);
-        } catch (PropertyInstantiationException ex){
+        } catch (PropertyInstantiationException ex) {
             responseBody.addProperty(JSON_PROPERTY_ERROR, ERROR_INVALID_PROPERTY);
             responseBody.addProperty(ex.getMessage(), PersistenceConstants.INVALID_PROPERTY_VALUE);
             response.status(HttpStatus.UNPROCESSABLE_ENTITY_422);
