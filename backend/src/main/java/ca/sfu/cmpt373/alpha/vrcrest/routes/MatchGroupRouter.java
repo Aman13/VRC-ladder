@@ -37,6 +37,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static ca.sfu.cmpt373.alpha.vrcrest.datatransfer.JsonProperties.JSON_PROPERTY_SCORES;
+
 public class MatchGroupRouter extends RestRouter {
 
     private MatchGroupManager matchGroupManager;
@@ -65,7 +67,6 @@ public class MatchGroupRouter extends RestRouter {
     private static final String JSON_PROPERTY_MATCHGROUPS = "matchGroups";
     private static final String JSON_PROPERTY_MATCHGROUP = "matchGroup";
     private static final String JSON_PROPERTY_COURTS = "courts";
-    private static final String JSON_PROPERTY_SCORES = "scores";
 
     private static final String ERROR_NO_MATCHGROUP_FOUND = "There was no MatchGroup found for the given Id";
     private static final String ERROR_NO_TEAM_MATCHGROUP_FOUND = "The Team or the MatchGroup couldn't be found";

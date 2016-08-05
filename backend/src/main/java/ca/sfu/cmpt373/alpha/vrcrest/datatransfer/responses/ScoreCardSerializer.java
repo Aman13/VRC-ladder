@@ -17,6 +17,9 @@ public class ScoreCardSerializer implements JsonSerializer<ScoreCard> {
     @Override
     public JsonElement serialize(ScoreCard scoreCard, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject jsonScoreCard = new JsonObject();
+        if (!scoreCard.isFilledOut()) {
+            return jsonScoreCard;
+        }
         List<Team> rankedTeams = scoreCard.getRankedTeams();
         for (int i = 0; i < rankedTeams.size(); i++) {
             int teamNumber = i + 1;
